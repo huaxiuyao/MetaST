@@ -90,7 +90,7 @@ def preprocessing(data_path, cluster_file, short_term_lstm_seq_len=7, last_featu
     if cluster_file is not None:
         return cnn_features, cluster_ids, short_term_lstm_features, labels, volume, seq_loc
     else:
-        return cnn_features, short_term_lstm_features, labels, volume. seq_loc
+        return cnn_features, short_term_lstm_features, labels, volume, seq_loc
 
 
 def main():

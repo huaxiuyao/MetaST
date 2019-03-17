@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-python train_model.py \
+python ./maml/train_model.py \
 --cities=env_ne,env_pa,env_sw --save_dir=./models --model_type=env_pretrain \
 --update_batch_size=128 --test_num_updates=1 --threshold=1e-3 \
 --meta_lr=1e-5 --update_lr=1e-5 --iterations=20000 --gpu_id=0

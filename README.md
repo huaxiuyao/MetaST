@@ -16,7 +16,13 @@ If you find this repository useful in your research, please cite the following p
 
 ## Data
 - Taxi Data
+    - NYC, Washington DC, Porto, Chicago, Boston
+    - processed data is in './data/taxi'
 - Bike Data
+    - NYC, Washington DC, Chicago
+    - processed data is in './data/bike'
 - Environment PH Data
+    - Midwest, Northeast, Pacific, South, Southwest, West
+    - processed data is in './data/environment'
 
 ## Usage
