@@ -26,3 +26,22 @@ If you find this repository useful in your research, please cite the following p
     - processed data is in './data/environment'
 
 ## Usage
+
+### Data Preprocessing
+This part is used to generate the sequential data for training.
+```
+python ./maml/preprocess.py --filename=/A/B.npz --cluster_file=/cluster/A/cluster_B --save_filename=B_seq.npz
+```
+A can be replaced by the task (taxi, bike, environment), B can be replaced by the city (e.g., nyc, dc)
+
+Please check the data and scripts/preprocessing for more details.
+
+### Training
+For training, please use:
+```
+python ./maml/train_model.py --cities=several cities --save_dir=./models --model_type=att_metatrain_mem8 --update_batch_size=128 --test_num_updates=5 --threshold=0 --mem_dim=8 --cluster_loss_weight=1e-4 --meta_lr=1e-5 --update_lr=1e-5 --iterations=20000 --gpu_id=0
+```
+
+Please check the scripts/training for more details
+### Testing
+For testing, please use:

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python ./maml/train_model.py --cities=nyc,dc,proto --save_dir=./models --model_type=att_metatrain_mem8 --update_batch_size=128 --test_num_updates=5 --threshold=0 --mem_dim=8 --cluster_loss_weight=1e-4 --meta_lr=1e-5 --update_lr=1e-5 --iterations=20000 --gpu_id=0

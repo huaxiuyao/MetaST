@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python ./maml/test_model.py --city=chicago --save_dir=./models --output_dir=./outputs --model_type=att_metatrain_mem8 --test_model=model_3200 --test_days=3 --update_batch_size=128 --threshold=0 --meta_lr=1e-5 --update_lr=1e-5 --epochs=30 --gpu_id=0

@@ -44,8 +44,8 @@ def test(model, data_generator, sess, saver):
         print(epoch, np.sqrt(np.mean(total_test_loss)))
 
         for i in range(train_batch_num):
-            inputa = test_inputs[:, i * update_batch_size: (i+1) * update_batch_size, :, :]
-            labela = test_labels[:, i * update_batch_size: (i+1) * update_batch_size, :]
+            inputa = train_inputs[:, i * update_batch_size: (i+1) * update_batch_size, :, :]
+            labela = train_labels[:, i * update_batch_size: (i+1) * update_batch_size, :]
             if "att" in model_type:
                 dummy_clusters = np.zeros(shape=(len(inputa), update_batch_size, 1))
                 feed_dict = {model.inputa: inputa, model.labela: labela, model.clustera: dummy_clusters}
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     parser.add_argument('--epochs', type=int, default=20)
     parser.add_argument('--gpu_id', type=str, default="4")
 
-    dim_output = 1 
+    dim_output = 2
     dim_input = 7*7*dim_output
     seq_length = 8
 
