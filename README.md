@@ -29,6 +29,8 @@ The repo is continually updating.
 
 ## Usage
 
+First, construct folders named models, outputs, test_data
+
 ### Data Preprocessing
 This part is used to generate the sequential data for training.
 ```
