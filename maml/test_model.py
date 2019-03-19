@@ -53,33 +53,6 @@ def test(model, data_generator, sess, saver):
                 feed_dict = {model.inputa: inputa, model.labela: labela}
             sess.run([model.finetune_op], feed_dict)
 
-    if "att" in model_type:
-        total_att_vala = []
-        for i in range(test_batch_num):
-            inputa = test_inputs[:, i * update_batch_size: (i+1) * update_batch_size, :, :]
-            labela = test_labels[:, i * update_batch_size: (i+1) * update_batch_size, :]
-            dummy_clusters = np.zeros(shape=(len(inputa), update_batch_size, 1))
-            feed_dict = {model.inputa: inputa, model.labela: labela, model.clustera: dummy_clusters}
-            att1 = sess.run(model.all_att_val1, feed_dict)
-            total_att_vala.append(att1)
-        total_att_vala = np.concatenate(total_att_vala, axis=1)
-        total_att_vala = np.squeeze(total_att_vala)
-
-        seq_loc = data_generator.get_test_seq_loc()
-        for i in range(1, 4):
-            top_att_locs = []
-            print("For cluster", i)
-            att_idx = np.argsort(total_att_vala[:, i])[::-1]
-            att_locs = seq_loc[att_idx]
-            for k, loc in enumerate(att_locs):
-                if tuple(loc) not in top_att_locs:
-                    top_att_locs.append(tuple(loc))
-                    print(total_att_vala[att_idx[k]])
-                if len(top_att_locs) == 15:
-                    print(top_att_locs)
-                    break
-
-
 def main():
     tf.set_random_seed(1234)
 
