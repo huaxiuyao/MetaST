@@ -14,8 +14,6 @@ If you find this repository useful in your research, please cite the following p
 
 ```
 
-The repo is continually updating.
-
 ## Data
 - Taxi Data
     - NYC, Washington DC, Porto, Chicago, Boston
