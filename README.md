@@ -14,8 +14,6 @@ If you find this repository useful in your research, please cite the following p
 
 ```
 
-The repo is continually updating.
-
 ## Data
 - Taxi Data
     - NYC, Washington DC, Porto, Chicago, Boston
@@ -29,6 +27,8 @@ The repo is continually updating.
 
 ## Usage
 
+Please check the data and scripts/preprocessing, training and testing for more details.
+
 First, construct folders named models, outputs, test_data
 
 ### Data Preprocessing
@@ -38,22 +38,17 @@ python ./maml/preprocess.py --filename=/A/B.npz --cluster_file=/cluster/A/cluste
 ```
 A can be replaced by the task (taxi, bike, environment), B can be replaced by the city (e.g., nyc, dc)
 
-Please check the data and scripts/preprocessing for more details.
-
 ### Training
 For training, please use:
 ```
 python ./maml/train_model.py --cities=several cities --save_dir=./models --model_type=att_metatrain_mem8 --update_batch_size=128 --test_num_updates=5 --threshold=0 --mem_dim=8 --cluster_loss_weight=1e-4 --meta_lr=1e-5 --update_lr=1e-5 --iterations=20000 --gpu_id=0
 ```
 
-Please check the scripts/training for more details
 ### Testing
 For testing, please use:
 
 ```
 python ./maml/test_model.py --city=chicago --save_dir=./models --output_dir=./outputs --model_type=att_metatrain_mem8 --test_model=model_3200 --test_days=3 --update_batch_size=128 --threshold=0 --meta_lr=1e-5 --update_lr=1e-5 --epochs=30 --gpu_id=0
 ```
-
-Please check the scripts/testing for more details
 
 Finally, run analysis.py to get denormalized results
