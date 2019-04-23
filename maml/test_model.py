@@ -43,15 +43,25 @@ def test(model, data_generator, sess, saver):
             saver.save(sess, output_dir + "/model_" + model_type)
         print(epoch, np.sqrt(np.mean(total_test_loss)))
 
+        total_train_loss = []
+        total_train_outputa = []
+
         for i in range(train_batch_num):
-            inputa = train_inputs[:, i * update_batch_size: (i+1) * update_batch_size, :, :]
-            labela = train_labels[:, i * update_batch_size: (i+1) * update_batch_size, :]
+            inputa = train_inputs[:, i * update_batch_size: (i + 1) * update_batch_size, :, :]
+            labela = train_labels[:, i * update_batch_size: (i + 1) * update_batch_size, :]
             if "att" in model_type:
                 dummy_clusters = np.zeros(shape=(len(inputa), update_batch_size, 1))
                 feed_dict = {model.inputa: inputa, model.labela: labela, model.clustera: dummy_clusters}
             else:
                 feed_dict = {model.inputa: inputa, model.labela: labela}
             sess.run([model.finetune_op], feed_dict)
+            outputa, loss1 = sess.run([model.outputas, model.total_loss1], feed_dict)
+            total_train_outputa.append(outputa)
+            total_train_loss.append(loss1)
+
+        if len(output_dir) > 0:
+            np.savez(output_dir + "/output_train_" + model_type, total_train_outputa)
+        print("train:", epoch, np.sqrt(np.mean(total_train_loss)))
 
 def main():
     tf.set_random_seed(1234)
@@ -88,9 +98,9 @@ def main():
                                    seq_length=seq_length,
                                    threshold=threshold)
     if dim_output == 2:
-        data_generator.load_train_data(cities=[city], train_prop=test_days*24, select_data='all', shuffle=False)
+        data_generator.load_train_data(cities=[city], train_prop=int(test_days*24), select_data='all', shuffle=False)
     else:
-        data_generator.load_train_data(cities=[city], train_prop=test_days*24, select_data='pick', shuffle=False)
+        data_generator.load_train_data(cities=[city], train_prop=int(test_days*24), select_data='pick', shuffle=False)
 
     if len(save_dir) > 0:
         model_file = save_dir + "/" + model_type + "/" + test_model_name
