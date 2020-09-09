@@ -1,7 +1,6 @@
 """ Code for loading data. """
 import numpy as np
 
-
 class DataGenerator(object):
     def __init__(self, dim_input, dim_output, seq_length, threshold):
         self.dim_input = dim_input
@@ -55,6 +54,7 @@ class DataGenerator(object):
                 data = data[:, :, :, :, 0:1]
                 labels = labels[:, 0:1]
                 valid_idx = labels[:, 0] >= norm_threshold
+
             elif select_data == "drop":
                 data = data[:, :, :, :, 1:2]
                 labels = labels[:, 1:2]
@@ -140,7 +140,7 @@ class DataGenerator(object):
             cid = self.cid_test
         for i, city in enumerate(self.cities):
             total_data_num = cnnx[city].shape[0]
-            idx = np.random.choice(total_data_num, update_batch_size)
+            idx = np.random.choice(total_data_num, update_batch_size, replace=False)
             seqs = cnnx[city][idx]
             labels = np.array(y[city])[idx]
             inputs[i] = seqs
